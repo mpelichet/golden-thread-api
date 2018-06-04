@@ -24,11 +24,11 @@ let LoginController = class LoginController {
     }
     async createLogin(login) {
         var users = await this.userRepo.find();
-        var username = login.email;
+        var username = login.username;
         var password = login.password;
         for (var i = 0; i < users.length; i++) {
             var user = users[i];
-            if (login.email == user.email && login.password == login.password) {
+            if (login.username == users[i].username && login.password == users[i].password) {
                 return user.i;
             }
         }

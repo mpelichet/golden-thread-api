@@ -1,6 +1,8 @@
 import {Entity, property, model} from '@loopback/repository';
 
 @model()
+//boilerplate code: standard code used to create a repository
+
 
 export class Users extends Entity{
     @property({

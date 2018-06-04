@@ -10,7 +10,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const repository_1 = require("@loopback/repository");
-let Users = class Users extends repository_1.Entity {
+let Users = 
+//boilerplate code: standard code used to create a repository
+class Users extends repository_1.Entity {
     getId() {
         return this.id;
     }
@@ -45,6 +47,7 @@ __decorate([
 ], Users.prototype, "password", void 0);
 Users = __decorate([
     repository_1.model()
+    //boilerplate code: standard code used to create a repository
 ], Users);
 exports.Users = Users;
 //# sourceMappingURL=users.js.map
