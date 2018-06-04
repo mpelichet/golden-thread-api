@@ -22,8 +22,17 @@ let LoginController = class LoginController {
     constructor(userRepo) {
         this.userRepo = userRepo;
     }
-    async createLogin(users) {
-        return await this.userRepo.create(users);
+    async createLogin(login) {
+        var users = await this.userRepo.find();
+        var username = login.email;
+        var password = login.password;
+        for (var i = 0; i < users.length; i++) {
+            var user = users[i];
+            if (login.email == user.email && login.password == login.password) {
+                return user.i;
+            }
+        }
+        return console.error("Sorry, that's wrong");
     }
 };
 __decorate([

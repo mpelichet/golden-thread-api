@@ -14,7 +14,7 @@ export class UsersController {
   ) {}
 
   @get('/users')
-  async getAllPizzas(): Promise<Array<Users>> {
+  async getAllUsers(): Promise<Array<Users>> {
     return await this.userRepo.find();
   }
 }

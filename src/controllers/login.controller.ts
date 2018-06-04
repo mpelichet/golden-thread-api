@@ -9,14 +9,26 @@ import { Users } from "../models/users";
 
 
 export class LoginController {
-
   constructor(
     @repository(UsersRepository.name) private userRepo: UsersRepository
   ) {}
 
   @post('/login')
-  async createLogin(@requestBody() users: Users) {
-    return await this.userRepo.create(users);
+  async createLogin(@requestBody() login: Users) {
+    var users =  await this.userRepo.find();
+    var username = login.email;
+    var password = login.password; 
+
+    for (var i = 0;  i < users.length; i++){
+      var user = users[i]; 
+      if (login.email == user.email && login.password == login.password){
+        return user.i; 
+      }
+    }
+
+    return console.error("Sorry, that's wrong");
+
+
   }
 
 }
