@@ -28,7 +28,7 @@ let LoginController = class LoginController {
         var password = login.password;
         for (var i = 0; i < users.length; i++) {
             var user = users[i];
-            if (login.username == users[i].username && login.password == users[i].password) {
+            if (login.username == users[i].username && login.password == user.password) {
                 return user.i;
             }
         }

@@ -1,12 +1,12 @@
 import {Entity, property, model} from '@loopback/repository';
 
 @model({
-    name: "user"
+    name: "charity"
 })
 //boilerplate code: standard code used to create a repository
 
 
-export class Users extends Entity{
+export class Charities extends Entity{
     @property({
         type: 'number',
         id: true,
@@ -18,28 +18,35 @@ export class Users extends Entity{
         type: 'string',
         required: true
     })
-    firstname: string;
+    name: string;
 
     @property({
         type: 'string',
         id: true, 
         required: true
     })
-    username: string;
+    description: string;
 
     @property({
         type: 'string',
         id: true, 
         required: true
     })
-    lastname: string;
+    url: string;
 
     @property({
         type: 'string',
         id: true,
         required: true 
     })
-    password: string;
+    image: string;
+
+    @property({
+        type: 'string',
+        id: true,
+        required: true 
+    })
+    donationgoal: string;
 
     getId(){
         return this.id;

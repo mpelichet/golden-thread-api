@@ -20,7 +20,8 @@ class Users extends repository_1.Entity {
 __decorate([
     repository_1.property({
         type: 'number',
-        id: true
+        id: true,
+        required: true
     }),
     __metadata("design:type", Number)
 ], Users.prototype, "id", void 0);
@@ -30,23 +31,35 @@ __decorate([
         required: true
     }),
     __metadata("design:type", String)
-], Users.prototype, "name", void 0);
+], Users.prototype, "firstname", void 0);
 __decorate([
     repository_1.property({
         type: 'string',
-        id: true
+        id: true,
+        required: true
     }),
     __metadata("design:type", String)
 ], Users.prototype, "username", void 0);
 __decorate([
     repository_1.property({
         type: 'string',
-        id: true
+        id: true,
+        required: true
+    }),
+    __metadata("design:type", String)
+], Users.prototype, "lastname", void 0);
+__decorate([
+    repository_1.property({
+        type: 'string',
+        id: true,
+        required: true
     }),
     __metadata("design:type", String)
 ], Users.prototype, "password", void 0);
 Users = __decorate([
-    repository_1.model()
+    repository_1.model({
+        name: "user"
+    })
     //boilerplate code: standard code used to create a repository
 ], Users);
 exports.Users = Users;
