@@ -21,8 +21,16 @@ let UsersController = class UsersController {
     constructor(userRepo) {
         this.userRepo = userRepo;
     }
-    async getAllUsers() {
+    async findUsers() {
         return await this.userRepo.find();
+    }
+    async findUsersById(id) {
+        // Check for valid ID
+        let userExists = !!(await this.userRepo.count({ id }));
+        if (!userExists) {
+            throw new rest_1.HttpErrors.BadRequest(`user ID ${id} does not exist`);
+        }
+        return await this.userRepo.findById(id);
     }
 };
 __decorate([
@@ -30,9 +38,16 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
-], UsersController.prototype, "getAllUsers", null);
+], UsersController.prototype, "findUsers", null);
+__decorate([
+    rest_1.get('/users/{id}'),
+    __param(0, rest_1.param.path.number('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "findUsersById", null);
 UsersController = __decorate([
-    __param(0, repository_1.repository(users_repository_1.UsersRepository.name)),
+    __param(0, repository_1.repository(users_repository_1.UsersRepository)),
     __metadata("design:paramtypes", [users_repository_1.UsersRepository])
 ], UsersController);
 exports.UsersController = UsersController;

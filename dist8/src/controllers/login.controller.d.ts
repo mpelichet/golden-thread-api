@@ -1,7 +1,7 @@
 import { UsersRepository } from "../repositories/users.repository";
 import { Users } from "../models/users";
 export declare class LoginController {
-    private userRepo;
+    protected userRepo: UsersRepository;
     constructor(userRepo: UsersRepository);
-    createLogin(login: Users): Promise<any>;
+    loginUser(user: Users): Promise<Users>;
 }

@@ -18,24 +18,45 @@ const repository_1 = require("@loopback/repository");
 const users_repository_1 = require("../repositories/users.repository");
 const rest_1 = require("@loopback/rest");
 const users_1 = require("../models/users");
-let RegistrationController = class RegistrationController {
+let LoginController = class LoginController {
     constructor(userRepo) {
         this.userRepo = userRepo;
     }
-    async createRegistration(users) {
-        return await this.userRepo.create(users);
+    async loginUser(user) {
+        // Check that email and password are both supplied
+        if (!user.email || !user.password) {
+            throw new rest_1.HttpErrors.Unauthorized('invalid credentials');
+        }
+        // Check that email and password are valid
+        let userExists = !!(await this.userRepo.count({
+            and: [
+                { email: user.email },
+                { password: user.password },
+            ],
+        }));
+        if (!userExists) {
+            throw new rest_1.HttpErrors.Unauthorized('invalid credentials');
+        }
+        return await this.userRepo.findOne({
+            where: {
+                and: [
+                    { email: user.email },
+                    { password: user.password }
+                ],
+            },
+        });
     }
 };
 __decorate([
-    rest_1.post('/registration'),
+    rest_1.post('/login'),
     __param(0, rest_1.requestBody()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [users_1.Users]),
     __metadata("design:returntype", Promise)
-], RegistrationController.prototype, "createRegistration", null);
-RegistrationController = __decorate([
-    __param(0, repository_1.repository(users_repository_1.UsersRepository.name)),
+], LoginController.prototype, "loginUser", null);
+LoginController = __decorate([
+    __param(0, repository_1.repository(users_repository_1.UsersRepository)),
     __metadata("design:paramtypes", [users_repository_1.UsersRepository])
-], RegistrationController);
-exports.RegistrationController = RegistrationController;
+], LoginController);
+exports.LoginController = LoginController;
 //# sourceMappingURL=registration.controller.js.map

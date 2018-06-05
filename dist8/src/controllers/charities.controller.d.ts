@@ -1,3 +1,8 @@
+import { CharitiesRepository } from "../repositories/charities.repository";
+import { Charities } from "../models/charities";
 export declare class CharitiesController {
-    constructor();
+    protected charityRepo: CharitiesRepository;
+    constructor(charityRepo: CharitiesRepository);
+    findCharities(): Promise<Charities[]>;
+    findCharityById(id: number): Promise<Charities>;
 }

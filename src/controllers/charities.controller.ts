@@ -15,17 +15,17 @@ export class CharitiesController {
   ) {}
 
   @get('/charities')
-  async findUsers(): Promise<Charities[]> {
+  async findCharities(): Promise<Charities[]> {
     return await this.charityRepo.find();
   }
 
   @get('/charities/{id}')
-  async findUsersById(@param.path.number('id') id: number): Promise<Charities> {
+  async findCharityById(@param.path.number('id') id: number): Promise<Charities> {
     // Check for valid ID
-    let userExists: boolean = !!(await this.charityRepo.count({ id }));
+    let charityExists: boolean = !!(await this.charityRepo.count({ id }));
 
-    if (!userExists) {
-      throw new HttpErrors.BadRequest(`user ID ${id} does not exist`);
+    if (!charityExists) {
+      throw new HttpErrors.BadRequest(`charity ID ${id} does not exist`);
     }
 
     return await this.charityRepo.findById(id);

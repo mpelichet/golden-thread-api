@@ -1,7 +1,7 @@
 import {Entity, property, model} from '@loopback/repository';
 
 @model({
-    name: "charity"
+    name: "charities"
 })
 //boilerplate code: standard code used to create a repository
 
@@ -46,7 +46,7 @@ export class Charities extends Entity{
         id: true,
         required: true 
     })
-    donationgoal: string;
+    donationgoal: number;
 
     getId(){
         return this.id;

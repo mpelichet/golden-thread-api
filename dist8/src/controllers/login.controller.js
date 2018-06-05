@@ -22,17 +22,29 @@ let LoginController = class LoginController {
     constructor(userRepo) {
         this.userRepo = userRepo;
     }
-    async createLogin(login) {
-        var users = await this.userRepo.find();
-        var username = login.username;
-        var password = login.password;
-        for (var i = 0; i < users.length; i++) {
-            var user = users[i];
-            if (login.username == users[i].username && login.password == user.password) {
-                return user.i;
-            }
+    async loginUser(user) {
+        // Check that email and password are both supplied
+        if (!user.email || !user.password) {
+            throw new rest_1.HttpErrors.Unauthorized('invalid credentials');
         }
-        return console.error("Sorry, that's wrong");
+        // Check that email and password are valid
+        let userExists = !!(await this.userRepo.count({
+            and: [
+                { email: user.email },
+                { password: user.password },
+            ],
+        }));
+        if (!userExists) {
+            throw new rest_1.HttpErrors.Unauthorized('invalid credentials');
+        }
+        return await this.userRepo.findOne({
+            where: {
+                and: [
+                    { email: user.email },
+                    { password: user.password }
+                ],
+            },
+        });
     }
 };
 __decorate([
@@ -41,9 +53,9 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [users_1.Users]),
     __metadata("design:returntype", Promise)
-], LoginController.prototype, "createLogin", null);
+], LoginController.prototype, "loginUser", null);
 LoginController = __decorate([
-    __param(0, repository_1.repository(users_repository_1.UsersRepository.name)),
+    __param(0, repository_1.repository(users_repository_1.UsersRepository)),
     __metadata("design:paramtypes", [users_repository_1.UsersRepository])
 ], LoginController);
 exports.LoginController = LoginController;

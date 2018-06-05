@@ -38,6 +38,7 @@ export class GoldenThreadApiApplication extends BootMixin(RepositoryMixin(RestAp
       password: 'Muffin1996!'
       });
       this.dataSource(dataSourceConfig);
+
   }
 
   async start() {
